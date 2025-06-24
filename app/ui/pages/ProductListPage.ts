@@ -1,5 +1,6 @@
 import { type Page, type Locator } from "@playwright/test";
 import { ShoppingCartPage } from "./ShoppingCartPage"
+import { step } from "../../helpers/decorators/steps";
 
 export class ProductListPage {
     private readonly page: Page;
@@ -14,6 +15,7 @@ export class ProductListPage {
         this.shoppingCartButton = page.locator('[data-test="shopping-cart-link"]');
     }
 
+    @step("Added t short: {tShortName}")
     async addToCartButton(tShortName) {
         await this.addToCartButtonLocator(tShortName).click();
 

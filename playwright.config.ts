@@ -69,6 +69,12 @@ export default defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
+  // кастомний вейт
+  // timeout: 30000, // загальний час на тест
+  // use: {
+  //   actionTimeout: 5000, // кожна дія, як клік або типінг
+  //   navigationTimeout: 15000, // окрема навігація
+  // }
 
   /* Run your local dev server before starting the tests */
   // webServer: {
@@ -76,4 +82,5 @@ export default defineConfig({
   //   url: 'http://127.0.0.1:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
+
 });

@@ -2,6 +2,7 @@ import { type Page, type Locator } from "@playwright/test";
 import { ProductListPage } from "./ProductListPage";
 import { getAuthData } from "../../../utils/creds.utils";
 import { BasePage } from "./BasePage";
+import { step } from "../../helpers/decorators/steps";
 
 export class LoginPage extends BasePage{
     private readonly usernameInput: Locator;
@@ -15,6 +16,7 @@ export class LoginPage extends BasePage{
         this.loginButton = page.locator('[data-test="login-button"]');
     }
 
+    @step("Opened Portal Login Page")
     async openPortalLoginPage() {
         await this.page.goto('/');
 
