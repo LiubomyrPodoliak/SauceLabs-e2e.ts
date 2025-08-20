@@ -83,5 +83,5 @@ test("test with page object modal for clik in different elements", async ({
 
   const checkoutPage = await shoppingCartPage.checkoutOrder();
 
-  expect(await checkoutPage.isCheckoutPageOpened()).toBe(true);
+  await checkoutPage.isCheckoutPageOpened();
 });

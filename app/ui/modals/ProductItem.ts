@@ -1,13 +1,5 @@
-// ...existing code...
-import type { Locator } from "@playwright/test";
+import { parsePriceString } from "../../../utils/string.utils";
 
-/**
- * ProductItem - plain model for an item on https://www.saucedemo.com/inventory.html
- * Fields:
- *  - name: product title
- *  - description: product description
- *  - price: numeric price (e.g. 15.99)
- */
 export class ProductItem {
   readonly name: string;
   readonly description: string;
@@ -24,15 +16,6 @@ export class ProductItem {
   }
 }
 
-/**
- * ProductItemBuilder - fluent builder for ProductItem
- * Usage:
- *   const item = new ProductItemBuilder()
- *     .setName("Sauce Labs Bolt T-Shirt")
- *     .setDescription("Comfortable cotton tee")
- *     .setPrice(15.99)
- *     .build();
- */
 export class ProductItemBuilder {
   private _name?: string;
   private _description?: string;
@@ -48,9 +31,6 @@ export class ProductItemBuilder {
     return this;
   }
 
-  /**
-   * Accepts number or string like "$15.99" or "15,99"
-   */
   setPrice(price: number | string): this {
     if (typeof price === "string") {
       this._price = parsePriceString(price);
@@ -74,13 +54,3 @@ export class ProductItemBuilder {
     });
   }
 }
-
-/* Utility */
-function parsePriceString(raw: string): number {
-  // remove currency symbols and spaces, support comma or dot decimals
-  const normalized = raw.replace(/[^\d,.-]/g, "").replace(",", ".");
-  const n = Number(normalized);
-  if (Number.isNaN(n)) throw new Error(`Cannot parse price from "${raw}"`);
-  return n;
-}
-// ...existing code...
