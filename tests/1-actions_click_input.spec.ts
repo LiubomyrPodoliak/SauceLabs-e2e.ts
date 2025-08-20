@@ -1,6 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { LoginPage } from '../app/ui/pages/LoginPage';
-
+import { expect, test } from "@playwright/test";
+import { LoginPage } from "../app/ui/pages/LoginPage";
 
 // test('test text box', async ({ page }) => {
 //     await page.goto('https://rozetka.com.ua/');
@@ -21,10 +20,8 @@ import { LoginPage } from '../app/ui/pages/LoginPage';
 
 //     const h1 = page.locator(`//h1[contains(text(),'Samsung Galaxy S25')]`);
 
-
 //     await expect(h1).toBeVisible();
 // });
-
 
 // test('test text box ineraction - facebook', async ({ page }) => {
 //     const fbEmailTextBox = page.getByTestId('royal-email');
@@ -32,11 +29,9 @@ import { LoginPage } from '../app/ui/pages/LoginPage';
 
 //     await page.goto("https://www.facebook.com/");
 
-
 //     await expect(fbEmailTextBox).toHaveAttribute("placeholder", "Email or phone number");
 
 //     await expect(fbPaasswordTextBox).toHaveAttribute("placeholder", "Password")
-
 
 //     await fbEmailTextBox.type("test type", { delay: 70 });
 
@@ -73,18 +68,20 @@ import { LoginPage } from '../app/ui/pages/LoginPage';
 //     await page.locator('[data-test="checkout"]').click();
 // });
 
-test('test with page object modal for clik in different elements', async ({ page }) => {
-    const productListPage = await new LoginPage(page).loginToPortalWithDefaultCreds();
-    const sauceLabsBoltTShirt = "Sauce Labs Bolt T-Shirt";
+test("test with page object modal for clik in different elements", async ({
+  page,
+}) => {
+  const productListPage = await new LoginPage(
+    page
+  ).loginToPortalWithDefaultCreds();
+  const sauceLabsBoltTShirt = "Sauce Labs Bolt T-Shirt";
 
-    await productListPage.addToCartButton(sauceLabsBoltTShirt)
-    const shoppingCartPage = await productListPage.openShoppingCartPage();
+  await productListPage.addToCartButton(sauceLabsBoltTShirt);
+  const shoppingCartPage = await productListPage.openShoppingCartPage();
 
-    expect(await shoppingCartPage.getItemName()).toEqual(sauceLabsBoltTShirt);
+  expect(await shoppingCartPage.getItemName()).toEqual(sauceLabsBoltTShirt);
 
-    const checkoutPage = await shoppingCartPage.checkoutOrder();
+  const checkoutPage = await shoppingCartPage.checkoutOrder();
 
-    expect(await checkoutPage.isCheckoutPageOpened()).toBe(true);
+  expect(await checkoutPage.isCheckoutPageOpened()).toBe(true);
 });
-
-

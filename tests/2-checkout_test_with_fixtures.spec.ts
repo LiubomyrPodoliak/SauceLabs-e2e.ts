@@ -1,20 +1,37 @@
-import { test, expect } from '../app/ui/fixtures/authFixture';
+import { test, expect } from "../app/ui/fixtures/authFixture";
+import { Page } from "@playwright/test";
 
-test.use({ userToLogin: 'standard_user' });
+test.use({ userToLogin: "standard_user" });
 
-test('test with page object modal for clik in different elements fixtures', async ({ 
-    productListPage, 
-    checkoutPage, 
-    shoppingCartPage 
+test("test with page object modal for click in different elements fixtures", async ({
+  productListPage,
+  checkoutPage,
+  shoppingCartPage,
 }) => {
-    const sauceLabsBoltTShirt = "Sauce Labs Bolt T-Shirt";  
+  const sauceLabsBoltTShirt = "Sauce Labs Bolt T-Shirt";
 
-    await productListPage.addToCartButton(sauceLabsBoltTShirt)
-    await productListPage.openShoppingCartPage();
+  await productListPage.addToCartButton(sauceLabsBoltTShirt);
+  await productListPage.openShoppingCartPage();
 
-    expect(await shoppingCartPage.getItemName()).toEqual(sauceLabsBoltTShirt);
+  expect(await shoppingCartPage.getItemName()).toEqual(sauceLabsBoltTShirt);
 
-    checkoutPage = await shoppingCartPage.checkoutOrder();
+  checkoutPage = await shoppingCartPage.checkoutOrder();
 
-    expect(await checkoutPage.isCheckoutPageOpened()).toBe(true);
+  checkoutPage.isCheckoutPageOpened();
+});
+
+test("collect all items on the page", async ({
+  productListPage,
+  shoppingCartPage,
+  page,
+}) => {
+  const items = await productListPage.getAllItems();
+  expect(items.length).toBeGreaterThan(0);
+
+  let randomItemName = items[Math.floor(Math.random() * items.length)].name;
+
+  await productListPage.addToCartButton(randomItemName);
+  await productListPage.openShoppingCartPage();
+
+  expect(await shoppingCartPage.getItemName()).toEqual(randomItemName);
 });

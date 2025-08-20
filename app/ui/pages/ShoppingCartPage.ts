@@ -1,22 +1,20 @@
 import { Page } from "@playwright/test";
-import { CheckoutPage } from "./CheckoutPage"
+import { CheckoutPage } from "./CheckoutPage";
 
 export class ShoppingCartPage {
+  private readonly page: Page;
 
-    private readonly page: Page;
+  constructor(page: Page) {
+    this.page = page;
+  }
 
-    constructor(page: Page) {
-        this.page = page;
-    }
+  async getItemName() {
+    return this.page.locator('[data-test="inventory-item-name"]').innerText();
+  }
 
+  async checkoutOrder() {
+    await this.page.locator('[data-test="checkout"]').click();
 
-    async getItemName() {
-        return this.page.locator('[data-test="inventory-item-name"]').innerText();
-    }
-
-    async checkoutOrder() {
-        await this.page.locator('[data-test="checkout"]').click();
-
-        return new CheckoutPage(this.page);
-    }
+    return new CheckoutPage(this.page);
+  }
 }

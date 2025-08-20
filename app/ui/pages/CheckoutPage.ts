@@ -1,14 +1,14 @@
-import { Page } from "@playwright/test";
+import { Page, expect } from "@playwright/test";
 
-export class CheckoutPage{
-    private readonly page: Page;
-    private readonly checkoutPageHeader = '[data-test="title"]';
+export class CheckoutPage {
+  private readonly page: Page;
+  private readonly checkoutPageHeader = '[data-test="title"]';
 
-    constructor(page: Page){
-        this.page = page;
-    }
+  constructor(page: Page) {
+    this.page = page;
+  }
 
-    async isCheckoutPageOpened(){
-        return await this.page.locator(this.checkoutPageHeader).isVisible();
-    }
+  async isCheckoutPageOpened() {
+    await expect(this.page.locator(this.checkoutPageHeader)).toBeVisible();
+  }
 }
